@@ -18,7 +18,7 @@
 			print "$LastName, $FirstName<br  />";
 			print "$ID";
 		}else
-			echo '<a href="http://mscs-php.uwstout.edu/2019SU/cs/248/001/fords7798/Assignment5.html">Error: Return to your form to complete the data.</a>)';
+			//TO-DO, link back to html: echo '<a href="http://mscs-php.uwstout.edu.html">Error: Return to your form to complete the data.</a>)';
 	?>
 	</p>
 </body>
