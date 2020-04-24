@@ -54,7 +54,7 @@
 			inner join SectionLab on Lab.ID=SectionLab.SectionID
 			inner join Section on SectionLab.SectionID=Section.ID
 			inner join Class on Section.ClassID=Class.ID
-			where Student.isActive=1 and Lab.IsActive=1");
+			where Student.isActive and Lab.IsActive and Class.IsActive");
 			$stmt->execute();
 
 			// set the resulting array to associative
