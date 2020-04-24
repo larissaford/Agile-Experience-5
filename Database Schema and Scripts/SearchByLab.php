@@ -1,3 +1,11 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Search By Lab</title>
+</head>
+
+<body>
 <table style="width:100%">
   <tr>
     <th>Lab</th>
@@ -15,3 +23,5 @@
     <td>003</td>
   </tr>
 </table>
+</body>
+</html>
