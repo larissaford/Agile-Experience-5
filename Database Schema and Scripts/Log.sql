@@ -1,3 +1,5 @@
+delete from Log where true;
+
 insert into Log (GraderID, GradeID, TimeStamp) values (1, 30, '2019-06-21 15:11:06');
 insert into Log (GraderID, GradeID, TimeStamp) values (2, 28, '2020-03-30 11:49:17');
 insert into Log (GraderID, GradeID, TimeStamp) values (3, 26, '2020-03-22 14:12:08');
@@ -28,3 +30,5 @@ insert into Log (GraderID, GradeID, TimeStamp) values (27, 7, '2020-02-25 14:19:
 insert into Log (GraderID, GradeID, TimeStamp) values (28, 5, '2019-05-06 01:39:32');
 insert into Log (GraderID, GradeID, TimeStamp) values (29, 3, '2019-12-12 21:33:40');
 insert into Log (GraderID, GradeID, TimeStamp) values (30, 1, '2020-03-28 09:09:43');
+
+commit;

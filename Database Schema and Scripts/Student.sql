@@ -1,3 +1,7 @@
+delete from Student where true;
+
+alter table Student AUTO_INCREMENT = 0;
+
 insert into Student (FirstName, LastName, IsActive) values ('Nikolas', 'Gove', true);
 insert into Student (FirstName, LastName, IsActive) values ('Dollie', 'Morrilly', false);
 insert into Student (FirstName, LastName, IsActive) values ('Lotty', 'Askew', true);
@@ -28,3 +32,5 @@ insert into Student (FirstName, LastName, IsActive) values ('Bank', 'Burchfield'
 insert into Student (FirstName, LastName, IsActive) values ('Bar', 'Wynrehame', false);
 insert into Student (FirstName, LastName, IsActive) values ('Trix', 'Heisman', false);
 insert into Student (FirstName, LastName, IsActive) values ('Marthena', 'Giamelli', true);
+
+commit;

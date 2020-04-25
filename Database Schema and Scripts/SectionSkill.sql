@@ -1,3 +1,5 @@
+delete from SectionSkill where true;
+
 insert into SectionSkill (SectionID, SkillID, Learned) values (1, 1, false);
 insert into SectionSkill (SectionID, SkillID, Learned) values (2, 30, true);
 insert into SectionSkill (SectionID, SkillID, Learned) values (3, 2, false);
@@ -28,3 +30,5 @@ insert into SectionSkill (SectionID, SkillID, Learned) values (27, 14, false);
 insert into SectionSkill (SectionID, SkillID, Learned) values (28, 17, true);
 insert into SectionSkill (SectionID, SkillID, Learned) values (29, 15, false);
 insert into SectionSkill (SectionID, SkillID, Learned) values (30, 16, true);
+
+commit;

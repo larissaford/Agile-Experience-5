@@ -1,3 +1,5 @@
+delete from SectionLab where true;
+
 insert into SectionLab (SectionID, LabID, IsActive) values (1, 30, false);
 insert into SectionLab (SectionID, LabID, IsActive) values (2, 29, true);
 insert into SectionLab (SectionID, LabID, IsActive) values (3, 28, false);
@@ -28,17 +30,5 @@ insert into SectionLab (SectionID, LabID, IsActive) values (27, 3, false);
 insert into SectionLab (SectionID, LabID, IsActive) values (28, 2, false);
 insert into SectionLab (SectionID, LabID, IsActive) values (29, 1, true);
 insert into SectionLab (SectionID, LabID, IsActive) values (30, 4, false);
-/* Added Additional Data for Lab Search Page Testing Below (NS) */
-insert into SectionLab (SectionID, LabID, IsActive) values (1, 4, true); 
-insert into SectionLab (SectionID, LabID, IsActive) values (1, 24, false);
-insert into SectionLab (SectionID, LabID, IsActive) values (1, 28, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (2, 20, false);
-insert into SectionLab (SectionID, LabID, IsActive) values (3, 29, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (5, 10, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (6, 8, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (7, 2, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (7, 13, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (7, 20, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (8, 21, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (10, 5, true);
-insert into SectionLab (SectionID, LabID, IsActive) values (11, 9, false);
+
+commit;

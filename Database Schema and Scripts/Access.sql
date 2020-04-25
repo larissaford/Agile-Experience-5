@@ -1,3 +1,5 @@
+delete from Access where true;
+
 insert into Access (GraderID, PermissionID, SectionID) values (1, 15, 30);
 insert into Access (GraderID, PermissionID, SectionID) values (2, 30, 29);
 insert into Access (GraderID, PermissionID, SectionID) values (3, 14, 28);
@@ -28,3 +30,5 @@ insert into Access (GraderID, PermissionID, SectionID) values (27, 2, 4);
 insert into Access (GraderID, PermissionID, SectionID) values (28, 17, 3);
 insert into Access (GraderID, PermissionID, SectionID) values (29, 1, 2);
 insert into Access (GraderID, PermissionID, SectionID) values (30, 16, 1);
+
+commit;

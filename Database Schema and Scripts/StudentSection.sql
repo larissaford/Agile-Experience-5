@@ -1,3 +1,5 @@
+delete from StudentSection where true;
+
 insert into StudentSection (StudentID, SectionID, IsActive) values (1, 1, false);
 insert into StudentSection (StudentID, SectionID, IsActive) values (2, 2, true);
 insert into StudentSection (StudentID, SectionID, IsActive) values (3, 3, false);
@@ -28,3 +30,5 @@ insert into StudentSection (StudentID, SectionID, IsActive) values (27, 27, fals
 insert into StudentSection (StudentID, SectionID, IsActive) values (28, 28, true);
 insert into StudentSection (StudentID, SectionID, IsActive) values (29, 29, false);
 insert into StudentSection (StudentID, SectionID, IsActive) values (30, 30, true);
+
+commit;

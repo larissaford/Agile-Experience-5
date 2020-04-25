@@ -1,3 +1,7 @@
+delete from Skill where true;
+
+alter table Skill AUTO_INCREMENT = 0;
+
 insert into Skill (Name) values ('Tavu');
 insert into Skill (Name) values ('Yata');
 insert into Skill (Name) values ('Npath');
@@ -28,3 +32,5 @@ insert into Skill (Name) values ('Riffwire');
 insert into Skill (Name) values ('Minyx');
 insert into Skill (Name) values ('Demimbu');
 insert into Skill (Name) values ('Edgetag');
+
+commit;
