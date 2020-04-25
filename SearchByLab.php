@@ -9,22 +9,68 @@
 </head>
 
 <body>
-<table style="width:100%">
-  <tr>
-    <th>Lab</th>
-    <th>Class</th>
-    <th>Section</th>
-  </tr>
-  <tr>
-    <td>Lab01</td>
-    <td>CS-144</td>
-    <td>002</td>
-  </tr>
-  <tr>
-    <td>Lab02</td>
-    <td>CS-248</td>
-    <td>003</td>
-  </tr>
-</table>
+<p>
+	<?php
+		$ID = $_GET["ID"];
+		$Name   = $_GET["Name"];
+    $RUBRIC  = $_GET["Rubric"];
+    $BEGINDATE = $_GET["BeginDate"];
+    $DUEDATE = $_GET["DueDate"];
+		$isActive= $_GET["isActive"];
+		
+		//display labs
+
+		echo "<table style='border: solid 1px black;'>";
+		echo "<tr><th>FullName</th></tr>";
+
+		class TableRows extends RecursiveIteratorIterator {
+			function __construct($it) {
+				parent::__construct($it, self::LEAVES_ONLY);
+			}
+
+			function current() {
+				return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
+			}
+
+			function beginChildren() {
+				echo "<tr>";
+			}
+
+			function endChildren() {
+				echo "</tr>" . "\n";
+			}
+		}
+
+		$servername = "https://144.13.22.59:3306";
+		$username = "g5AppUser";
+		$password = "aug5";
+		$dbname = "G5AgileExperience";
+
+		try {
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$stmt = $conn->prepare("
+			select Name,Rubric, BeginDate, DueDate, Class.Name className, Lab.Name labName, BeginDate, DueDate 
+			from Lab
+			inner join Grade on Lab.ID=Grade.LabID
+			inner join SectionLab on Lab.ID=SectionLab.SectionID
+			inner join Section on SectionLab.SectionID=Section.ID
+			inner join Class on Section.ClassID=Class.ID
+			where Student.isActive and Lab.IsActive and Class.IsActive");
+			$stmt->execute();
+
+			// set the resulting array to associative
+			$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+			foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+				echo $v;
+			}
+		}
+		catch(PDOException $e) {
+			echo "Error: " . $e->getMessage();
+		}
+		$conn = null;
+		echo "</table>";
+	?>
+	</p>
 </body>
 </html>
