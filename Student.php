@@ -33,7 +33,7 @@
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare("
-			select Lab.Name labName, BeginDate, DueDate, FirstName,LastName, StudentID, Class.Name className
+			select FirstName,LastName, StudentID, Class.Name className, Lab.Name labName, BeginDate, DueDate 
 			from Student
 			inner join Grade on Student.ID=Grade.StudentID
 			inner join Lab on Grade.LabID=Lab.ID
