@@ -4,7 +4,7 @@
 		//display classes
 
 		echo "<table style='border: solid 1px black;'>";
-		echo "<tr><th>Student</th></tr>";
+		echo "<tr><th>Results</th></tr>";
 
 		class TableRows extends RecursiveIteratorIterator {
 			function __construct($it) {
@@ -41,12 +41,13 @@
 			inner join Section on SectionLab.SectionID=Section.ID
 			inner join Class on Section.ClassID=Class.ID
 			where Student.isActive and Lab.IsActive and Class.IsActive");
-			$stmt->execute();
-
+            $stmt->execute();
+            
 			// set the resulting array to associative
 			$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 			foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-				echo $v;
+                $studentID = $v["StudentID"];
+				echo <a href="Student.php?studentID=<?php echo $studentID= ?>" > $v </a>
 			}
 		}
 		catch(PDOException $e) {

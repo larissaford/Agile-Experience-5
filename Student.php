@@ -29,6 +29,9 @@
 		$password = "aug5";
 		$dbname = "G5AgileExperience";
 
+		if(isset($_GET['ID'] ) ){
+			$studentID = $_GET['ID'];
+				
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -40,7 +43,7 @@
 			inner join SectionLab on Lab.ID=SectionLab.SectionID
 			inner join Section on SectionLab.SectionID=Section.ID
 			inner join Class on Section.ClassID=Class.ID
-			where Student.isActive and Lab.IsActive and Class.IsActive");
+			where Student.isActive and Lab.IsActive and Class.IsActive and StudentID='$studentID'");
 			$stmt->execute();
 
 			// set the resulting array to associative
