@@ -1,3 +1,7 @@
+delete from Section where true;
+
+alter table Section AUTO_INCREMENT = 0;
+
 insert into Section (ClassID, SectionNum, IsActive) values (1, 2, false);
 insert into Section (ClassID, SectionNum, IsActive) values (2, 3, false);
 insert into Section (ClassID, SectionNum, IsActive) values (3, 1, false);
@@ -28,3 +32,5 @@ insert into Section (ClassID, SectionNum, IsActive) values (27, 4, true);
 insert into Section (ClassID, SectionNum, IsActive) values (28, 1, true);
 insert into Section (ClassID, SectionNum, IsActive) values (29, 4, false);
 insert into Section (ClassID, SectionNum, IsActive) values (30, 3, true);
+
+commit;

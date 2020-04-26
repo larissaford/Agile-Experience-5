@@ -1,3 +1,7 @@
+delete from Permission where true;
+
+alter table Permission AUTO_INCREMENT = 0;
+
 insert into Permission (Name) values ('Healings');
 insert into Permission (Name) values ('Dahler');
 insert into Permission (Name) values ('Baitey');
@@ -28,3 +32,5 @@ insert into Permission (Name) values ('Hansberry');
 insert into Permission (Name) values ('Latchmore');
 insert into Permission (Name) values ('Kimbley');
 insert into Permission (Name) values ('Sherry');
+
+commit;

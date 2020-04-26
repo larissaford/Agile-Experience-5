@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS SectionLab;
 DROP TABLE IF EXISTS StudentSection;
 DROP TABLE IF EXISTS Note;
 DROP TABLE IF EXISTS Grade;
+DROP TABLE IF EXISTS Log;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -20,6 +21,7 @@ CREATE TABLE Lab (
     ID int NOT NULL AUTO_INCREMENT,
     Name varchar(32) NOT NULL,
     Rubric varchar(260),
+    BeginDate datetime,
     DueDate datetime,
     IsActive boolean NOT NULL,
     PRIMARY KEY(ID)
@@ -32,7 +34,6 @@ CREATE TABLE Grader (
     Email varchar(100) NOT NULL,
     FirstName varchar(32) NOT NULL,
     LastName varchar(32) NOT NULL,
-    IsProfessor boolean NOT NULL,
     IsActive boolean NOT NULL,
     ActivationCode varchar(13),
     PRIMARY KEY(ID)
@@ -122,13 +123,21 @@ CREATE TABLE Note (
 );
 
 CREATE TABLE Grade (
+    ID int NOT NULL,
     StudentID int NOT NULL,
-    GraderID int NOT NULL,
     LabID int NOT NULL,
     Grade int NOT NULL,
-    TimeStamp datetime,
     FOREIGN KEY(StudentID) REFERENCES Student(ID),
-    FOREIGN KEY(GraderID) REFERENCES Grader(ID),
     FOREIGN KEY(LabID) REFERENCES Lab(ID),
-    PRIMARY KEY(StudentID, GraderID, LabID)
+    PRIMARY KEY(ID)
+);
+
+CREATE TABLE Log (
+    ID int NOT NULL,
+    GraderID int NOT NULL,
+    GradeID int NOT NULL,
+    TimeStamp datetime,
+    FOREIGN KEY(GradeID) REFERENCES Grade(ID),
+    FOREIGN KEY(GraderID) REFERENCES Grader(ID),
+    PRIMARY KEY(ID)
 );

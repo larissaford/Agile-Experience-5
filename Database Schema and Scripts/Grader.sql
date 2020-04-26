@@ -1,3 +1,7 @@
+delete from Grader where true;
+
+alter table Grader AUTO_INCREMENT = 0;
+
 insert into Grader (Username, Password, Email, FirstName, LastName, IsProfessor, IsActive, ActivationCode) values ('efarthin0', 'PvDMm4nA6', 'efarthin0@bbc.co.uk', 'Eldin', 'Farthin', false, true, 77422);
 insert into Grader (Username, Password, Email, FirstName, LastName, IsProfessor, IsActive, ActivationCode) values ('crippingale1', 'UpOyM6VYdEJ', 'crippingale1@gov.uk', 'Channa', 'Rippingale', true, true, 55196);
 insert into Grader (Username, Password, Email, FirstName, LastName, IsProfessor, IsActive, ActivationCode) values ('sneve2', '4Ckc6Mt9O', 'sneve2@liveinternet.ru', 'Stephannie', 'Neve', true, false, 41962);
@@ -28,3 +32,5 @@ insert into Grader (Username, Password, Email, FirstName, LastName, IsProfessor,
 insert into Grader (Username, Password, Email, FirstName, LastName, IsProfessor, IsActive, ActivationCode) values ('cogradar', 'GVRnXRG', 'cogradar@twitter.com', 'Cahra', 'O''Grada', false, true, 63341);
 insert into Grader (Username, Password, Email, FirstName, LastName, IsProfessor, IsActive, ActivationCode) values ('rgavrielis', 'W99on01tU', 'rgavrielis@cloudflare.com', 'Reinwald', 'Gavrieli', true, false, 35795);
 insert into Grader (Username, Password, Email, FirstName, LastName, IsProfessor, IsActive, ActivationCode) values ('btironet', '5KfMvyiKU1L', 'btironet@wordpress.com', 'Brandice', 'Tirone', false, true, 69998);
+
+commit;

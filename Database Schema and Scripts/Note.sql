@@ -1,3 +1,5 @@
+delete from Note where true;
+
 insert into Note (GraderID, LabID, Text, TimeStamp) values (1, 18, 'Excellent', '2020-04-04 04:04:04');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (2, 1, 'Fair', '2020-02-15 14:40:35');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (3, 8, 'Fair', '2020-10-31 12:30:00');
@@ -6,7 +8,7 @@ insert into Note (GraderID, LabID, Text, TimeStamp) values (5, 9, 'Fair', '2020-
 insert into Note (GraderID, LabID, Text, TimeStamp) values (6, 7, 'Excellent', '2020-01-02 01:23:45');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (7, 14, 'Fair', '2020-09-15 21:59:34');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (8, 22, 'Fair', '2020-08-30 23:59:59');
-insert into Note (GraderID, LabID, Text, TimeStamp) values (9, 29, 'Poor', '2020-07-DD 00:00:00');
+insert into Note (GraderID, LabID, Text, TimeStamp) values (9, 29, 'Poor', '2020-07-15 00:00:00');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (10, 30, 'Fair', '2020-06-18 11:22:33');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (11, 19, 'Excellent', '2020-05-05 05:06:07');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (12, 10, 'Poor', '2020-04-16 12:13:14');
@@ -28,3 +30,5 @@ insert into Note (GraderID, LabID, Text, TimeStamp) values (27, 4, 'Good', '2020
 insert into Note (GraderID, LabID, Text, TimeStamp) values (28, 11, 'Fair', '2020-05-25 15:23:19');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (29, 25, 'Poor', '2020-03-13 14:54:34');
 insert into Note (GraderID, LabID, Text, TimeStamp) values (30, 5, 'Excellent', '2020-02-28 16:12:59');
+
+commit;

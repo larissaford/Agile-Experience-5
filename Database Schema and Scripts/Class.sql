@@ -1,3 +1,7 @@
+delete from Class where true;
+
+alter table Class AUTO_INCREMENT = 0;
+
 insert into Class (Name, IsActive) values ('Jaxspan', true);
 insert into Class (Name, IsActive) values ('Devbug', true);
 insert into Class (Name, IsActive) values ('Browsebug', false);
@@ -28,3 +32,5 @@ insert into Class (Name, IsActive) values ('Npath', true);
 insert into Class (Name, IsActive) values ('Skyba', false);
 insert into Class (Name, IsActive) values ('Voolith', false);
 insert into Class (Name, IsActive) values ('Eamia', true);
+
+commit;

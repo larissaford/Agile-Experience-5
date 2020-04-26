@@ -1,3 +1,5 @@
+delete from Grade where true;
+
 insert into Grade (StudentID, LabID, Grade) values (1, 1, 40);
 insert into Grade (StudentID, LabID, Grade) values (2, 3, 10);
 insert into Grade (StudentID, LabID, Grade) values (3, 5, 42);
@@ -28,3 +30,5 @@ insert into Grade (StudentID, LabID, Grade) values (27, 24, 9);
 insert into Grade (StudentID, LabID, Grade) values (28, 26, 68);
 insert into Grade (StudentID, LabID, Grade) values (29, 28, 57);
 insert into Grade (StudentID, LabID, Grade) values (30, 30, 15);
+
+commit;
