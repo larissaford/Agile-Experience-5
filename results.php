@@ -14,12 +14,12 @@
 		$dbname = "G5AgileExperience";
 
 		//TO-DO: make it more responsive to the search page
-		$filter = $_GET["filter"];
-		$searchBy = $_GET["this"];
+		$filter = $_GET["filter"]; //needs to be the column name i.e. "StudentID" or "Lab.Name"
+		$searchBy = $_GET["this"]; //Strings need to be surrounded with single quotes i.e. lab name 'Vidoo'
 
 		//TEST
 		$filter = "StudentID";
-		$searchBy = 3;
+		$searchBy = 3; //strings need 
 
 	
 
