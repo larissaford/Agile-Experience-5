@@ -13,28 +13,24 @@
 		$password = "aug5";
 		$dbname = "G5AgileExperience";
 
-		//TO-DO: make it more responsive to the search page
+		//make it more responsive to the search page
 		$filter = $_GET["filter"]; //needs to be the column name i.e. "StudentID" or "Lab.Name"
 		$searchBy = $_GET["this"]; //Strings need to be surrounded with single quotes i.e. lab name 'Vidoo'
 
 		//TEST
 		$filter = "StudentID";
-		$searchBy = 3; //strings need 
-
-	
-
-		//click on lab: lab results page (lab.php) brought up
-		//click on student: student results page (Student.php) brought up
+		$searchBy = 3;
 
 		try {
 
 
 
-			//search by Labname, section number, className, studentFirstName, student LastName, 
+			//search by Lab.Name, SectionNum, Class.Name, FirstName, LastName, etc. 
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 			$arr = [];
+			
 			$where="";
 			if(!empty($searchBy)){
 				$where .= "and ".$filter."= ".$searchBy;
