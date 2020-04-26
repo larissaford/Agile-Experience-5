@@ -7,32 +7,49 @@
 
 <body>
 <?php
-		//display labs of student
-		//display grades
-		//display classes
 
 		$servername = "localhost:3306";
 		$username = "g5AppUser";
 		$password = "aug5";
 		$dbname = "G5AgileExperience";
 
+		//TO-DO: make it more responsive to the search page
+		$filter = $_GET["filter"];
+		$searchBy = $_GET["this"];
+
+		//TEST
+		$filter = "StudentID";
+		$searchBy = 3;
+
+	
+
 		//click on lab: lab results page (lab.php) brought up
 		//click on student: student results page (Student.php) brought up
 
 		try {
+
+
+
+			//search by Labname, section number, className, studentFirstName, student LastName, 
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 			$arr = [];
+			$where="";
+			if(!empty($searchBy)){
+				$where .= "and ".$filter."= ".$searchBy;
+			}
+				
 			$stmt = $conn->prepare("
-			select distinct Lab.Name labName, BeginDate, DueDate, FirstName,LastName, StudentID, Class.Name className, Section.SectionNum section
-			from Student
-			inner join Grade on Student.ID=Grade.StudentID
-			inner join Lab on Grade.LabID=Lab.ID
-			inner join SectionLab on Lab.ID=SectionLab.SectionID
-			inner join Section on SectionLab.SectionID=Section.ID
-			inner join Class on Section.ClassID=Class.ID
-			where Student.isActive and Lab.IsActive and Class.IsActive");
+				select distinct Lab.Name labName, BeginDate, DueDate, FirstName,LastName, StudentID, Class.Name className, Section.SectionNum section
+				from Student
+				inner join Grade on Student.ID=Grade.StudentID
+				inner join Lab on Grade.LabID=Lab.ID
+				inner join SectionLab on Lab.ID=SectionLab.SectionID
+				inner join Section on SectionLab.SectionID=Section.ID
+				inner join Class on Section.ClassID=Class.ID
+				where Student.isActive and Lab.IsActive and Class.IsActive $where");
+			
 			$stmt->execute();
 			
 			echo "<table><tr><th>Lab Name</th><th>Lab begin date</th><th>Lab due date</th><th>Student Name</th><th>Student ID</th><th>Class Name</th><th>Class Section</th></tr>";
@@ -42,13 +59,13 @@
 				echo "<tr><td>".$labName."</td>
 				<td>".$BeginDate."</td>
 				<td>".$DueDate."</td>
-				<td><a href='Student.php?StudentID=".$StudentID."'>".$FirstName." ".$LastName."</a></td>
-				<td><a href='Student.php?StudentID=".$StudentID."'>".$StudentID."</a></td>
+				<td>".$FirstName." ".$LastName."</a></td>
+				<td>".$StudentID."</a></td>
 				<td>".$className."</td>
 				<td>".$section."</td></tr>";
 
 				/* outline for inserting links:
-				<td><a href='Student.php?movie=<?php echo $StudentID ?>'>".$FirstName." ".$LastName."</a></td>
+				<td><a href='Student.php?StudentID=".$StudentID."'>".$StudentID."</a></td>
 				*/
 
 			}
