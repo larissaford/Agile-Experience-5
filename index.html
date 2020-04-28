@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Search for Labs</title>
+    </head>
+    <body>
+        <h1> Search for Labs by Student Name</h1>
+        <!--Change action the real location of where form data is to be sent -->
+        <form action="results.php" method="post">
+
+        <input type="text" list="studentNamesList" placeholder="Student Name">
+        <datalist id="studentNamesList">
+        <!-- // Pull names from database for values. -->
+        <option value="Alice">  
+        <option value="Charlie Rabbit">
+        <option value="Charlie Button">
+        <option value="Bob">
+        </datalist>
+
+        <input type="submit" value="Select">
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p>Once the student name has been selected, allow for searching for their labs</p> 
+        <!--Change action the real location of where form data is to be sent -->
+        <form action="results.php" method="post">
+
+            <input type="text" list="studentLabsList" placeholder="Lab Name">
+            <datalist id="studentLabsList">
+            <!-- // Pull lab names from database for values. -->
+            <option value="Hello world lab">  
+            <option value="If statement lab">
+            <option value="Loops lab">
+            <option value="Pointers lab">
+            </datalist>
+    
+            <input type="submit" value="Select">
+            </form>
+    
+
+    </body>
+
+
+
+</html>
