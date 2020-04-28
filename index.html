@@ -1,46 +1,38 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Search for Labs</title>
+        <style>
+            body{background-color: #3399CC; text-align:center}
+            h1{color:rgb(0, 17, 92); padding-top: 40px; font-size: 40px;}
+            u {border-bottom: 3px solid rgb(0, 17, 92); text-decoration: none;}
+            .search{width: 100%; position: relative; display: flex;}
+            .searchTerm{width: 100%; border: 2.5px solid black; border-right: none; border-left: none; padding: 5.5px; 
+                        height: 30px; outline: none; color: black; font-size: 20px;}
+            .button{width: 60px; height: 46px; border: 1px solid #00B4CC; background: rgb(0, 17, 92); 
+                        text-align: center; color:rgb(241, 241, 241); border-radius: 0 5px 5px 0; cursor: pointer; font-size: 15px;}
+            .filter{width: 90px; height: 46px; border: 1px solid #00B4CC; background: rgb(0, 17, 92); 
+                        text-align: center; color: rgb(241, 241, 241); border-radius: 5px 0px 0px 5px; font-size: 14px;}
+            .wrap{width: 30%; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%)}
+        </style>
+        <meta charset="utf-8">
+        <title>Search</title>
     </head>
     <body>
-        <h1> Search for Labs by Student Name</h1>
-        <!--Change action the real location of where form data is to be sent -->
-        <form action="results.php" method="post">
-
-        <input type="text" list="studentNamesList" placeholder="Student Name">
-        <datalist id="studentNamesList">
-        <!-- // Pull names from database for values. -->
-        <option value="Alice">  
-        <option value="Charlie Rabbit">
-        <option value="Charlie Button">
-        <option value="Bob">
-        </datalist>
-
-        <input type="submit" value="Select">
+        <form action="results.php" method="GET">
+        <h1><u> Search for Labs </u></h1>
+        <div class="wrap">
+            <div class="search">
+                <select id="filter" class="filter" name="filter">
+                    <option value="">All</option>
+                    <option value="Student">Student</option>
+                    <option value="Professor">Professor</option>
+                    <option value="Lab">Lab</option>
+                    <option value="Class">Class</option>
+                </select>
+               <input type="text" class="searchTerm" placeholder="Search..." name="this">
+               <input type="submit" value="Search" class="button">
+            </div>
+         </div>
         </form>
-        <br>
-        <br>
-        <br>
-        <br>
-        <p>Once the student name has been selected, allow for searching for their labs</p> 
-        <!--Change action the real location of where form data is to be sent -->
-        <form action="results.php" method="post">
-
-            <input type="text" list="studentLabsList" placeholder="Lab Name">
-            <datalist id="studentLabsList">
-            <!-- // Pull lab names from database for values. -->
-            <option value="Hello world lab">  
-            <option value="If statement lab">
-            <option value="Loops lab">
-            <option value="Pointers lab">
-            </datalist>
-    
-            <input type="submit" value="Select">
-            </form>
-    
-
     </body>
-
-
-
 </html>
