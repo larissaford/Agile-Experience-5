@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Search for Labs</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        
+        <div class="sidenav">
+            <a href="#Home">Home</a>
+            <a href="#Search">Search</a>
+            <a href="#Back">Back</a>
+            <a href="#Help">Help</a>
+        </div>
+
+        <h1> Search for Labs by Student Name</h1>
+        <!--Change action the real location of where form data is to be sent -->
+        <form action="phpPageLocation" method="post">
+            
+        <p>Enter student's name to search</p> 
+        
+            <h2>
+            <input type="text" list="studentNamesList" placeholder="Student Name">
+            <datalist id="studentNamesList">
+            <!-- // Pull names from database for values. -->
+            <option value="Alice">  
+            <option value="Charlie Rabbit">
+            <option value="Charlie Button">
+            <option value="Bob">
+            </datalist>
+            <input type="submit" value="Select">
+            </h2>>
+
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p>Enter labs under student's name</p> 
+        <!--Change action the real location of where form data is to be sent -->
+        <form action="phpPageLocation" method="post">
+
+            <h2>
+            <input type="text" list="studentLabsList" placeholder="Lab Name">
+            <datalist id="studentLabsList">
+            <!-- // Pull lab names from database for values. -->
+            <option value="Hello world lab">  
+            <option value="If statement lab">
+            <option value="Loops lab">
+            <option value="Pointers lab">
+            </datalist>
+            <input type="submit" value="Select">
+            </h2>
+    
+            </form>
+    
+
+    </body>
+
+
+
+</html>
