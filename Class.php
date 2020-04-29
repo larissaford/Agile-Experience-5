@@ -33,7 +33,7 @@
             $counter = 0;
 			while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $arr[] = $row;
-                list($className, $sectionNum, $classID, $beginDate, $dueDate, $firstName, $lastName, $studentID) = $row;
+                list($className, $sectionNum, $classID, $labName, $beginDate, $dueDate, $firstName, $lastName, $studentID) = $row;
                 
                 if ($counter == 0) {
                     echo "
