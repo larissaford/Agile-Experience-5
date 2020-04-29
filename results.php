@@ -30,10 +30,13 @@
 
 			$arr = [];
 
-			$where="";
+			
+			
+			/*
 			if(!empty($searchBy)){
 				$where .= "and ".$filter."= ".$searchBy;
 			}
+			*/
 			
 			/*
 			$stmt = $conn->prepare("
@@ -46,9 +49,12 @@
 				inner join Class on Section.ClassID=Class.ID
 				where Student.isActive and Lab.IsActive and Class.IsActive $where");
 			*/
-			
+			$where="";
 			switch ($filter) {
 				case "Lab":
+					if(!empty($searchBy)){
+						$where .= "and Lab.Name = '".$searchBy."' or Lab.ID = ".$searchBy;
+					}
 					$stmt = $conn->prepare("
 						select distinct Lab.Name labName, BeginDate, DueDate, Class.Name className, Section.SectionNum section
 						from Lab 
@@ -78,6 +84,10 @@
 					break;
 
 				case "Class":
+					if(!empty($searchBy)){
+						$where .= "and Class.Name = ".$searchBy;
+					}
+					
 					$stmt = $conn->prepare("
 						select distinct Class.Name className, Section.SectionNum section
 						from Section
@@ -102,6 +112,10 @@
 					break;
 
 				case "Student":
+					if(!empty($searchBy)){
+						$where .= "and FirstName = ".$searchBy." or LastName = ".$searchBy." or StudentID = ".$searchBy;
+					}
+					
 					$stmt = $conn->prepare("
 						select distinct FirstName,LastName, StudentID, Class.Name className, Section.SectionNum section
 						from Student
