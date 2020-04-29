@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS StudentSection;
 DROP TABLE IF EXISTS Note;
 DROP TABLE IF EXISTS Grade;
 DROP TABLE IF EXISTS Log;
+DROP TABLE IF EXISTS Criteria;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -23,6 +24,7 @@ CREATE TABLE Lab (
     Rubric varchar(260),
     BeginDate datetime,
     DueDate datetime,
+    GradeForCompletion boolean NOT NULL,
     IsActive boolean NOT NULL,
     PRIMARY KEY(ID)
 );
@@ -139,5 +141,14 @@ CREATE TABLE Log (
     TimeStamp datetime,
     FOREIGN KEY(GradeID) REFERENCES Grade(ID),
     FOREIGN KEY(GraderID) REFERENCES Grader(ID),
+    PRIMARY KEY(ID)
+);
+
+CREATE TABLE Criteria (
+    ID int NOT NULL,
+    LabID int NOT NULL,
+    Name varchar(32) NOT NULL,
+    MaxScore int NOT NULL,
+    FOREIGN KEY(LabID) REFERENCES Lab(ID),
     PRIMARY KEY(ID)
 );

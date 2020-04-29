@@ -13,6 +13,8 @@
         exit('Failed to connect: ' . mysqli_connect_error());
     }
 
+    echo("StudentID:" . $_POST['StudentID']);
+
     // Check that POST information is correct.
     if(!isset($_POST['StudentID'], $_POST['LabID'])) {
         exit('Failed to retrieve POST information.');
