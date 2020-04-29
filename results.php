@@ -18,8 +18,9 @@
 		$searchBy = $_GET["this"]; //Strings need to be surrounded with single quotes i.e. lab name 'Vidoo'
 
 		//TEST
-		$filter = "StudentID";
-		$searchBy = "";
+		//$filter = "Student";
+		//$searchBy = "";
+		
 
 		try {
 
@@ -47,10 +48,10 @@
 			*/
 			
 			switch ($filter) {
-				case 'Lab.Name':
+				case "Lab":
 					$stmt = $conn->prepare("
 						select distinct Lab.Name labName, BeginDate, DueDate, Class.Name className, Section.SectionNum section
-						from Lab on Grade.LabID=Lab.ID
+						from Lab 
 						inner join SectionLab on Lab.ID=SectionLab.SectionID
 						inner join Section on SectionLab.SectionID=Section.ID
 						inner join Class on Section.ClassID=Class.ID
@@ -62,7 +63,7 @@
 						$arr[] = $row;
 						list($labName, $BeginDate, $DueDate, $FirstName,$LastName, $StudentID, $className, $section, $grade) = $row;
 						echo "
-							<td><a href='lab.php?labName=".$labName."'>".$labName."</a></td>
+							<td><a href='Lab.php?labName=".$labName."'>".$labName."</a></td>
 							<td>".$BeginDate."</td>
 							<td>".$DueDate."</td>
 							<td><a href='Class.php?className=".$className."'>".$className."</a></td>
@@ -76,7 +77,7 @@
 					}
 					break;
 
-				case "Class.Name":
+				case "Class":
 					$stmt = $conn->prepare("
 						select distinct Class.Name className, Section.SectionNum section
 						from Section
@@ -100,9 +101,7 @@
 					}
 					break;
 
-				case "StudentID":
-				case "FirstName":
-				case "LastName":
+				case "Student":
 					$stmt = $conn->prepare("
 						select distinct FirstName,LastName, StudentID, Class.Name className, Section.SectionNum section
 						from Student
@@ -111,7 +110,7 @@
 						inner join SectionLab on Lab.ID=SectionLab.SectionID
 						inner join Section on SectionLab.SectionID=Section.ID
 						inner join Class on Section.ClassID=Class.ID
-						where Student.isActive and Class.IsActive $where");
+						where Student.isActive and Lab.isActive and Class.IsActive $where");
 					$stmt->execute();
 					
 					echo "<table><tr><th>Student Name</th><th>Student ID</th><th>Class Name</th><th>Class Section</th></tr>";
