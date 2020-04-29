@@ -81,7 +81,7 @@
 					$stmt = $conn->prepare("
 						select distinct Class.Name className, Section.SectionNum section
 						from Section
-						inner join SectionLab SectionLab.SectionID=Section.ID
+						inner join SectionLab on SectionLab.SectionID=Section.ID
 						inner join Class on Section.ClassID=Class.ID
 						where Class.IsActive $where");
 						$stmt->execute();
