@@ -1,7 +1,7 @@
 <!--
 lab.php
 
-Noah Scherwinski
+Noah Scherwinski & James Cerasani
 
 Generates a page giving information about a single lab.
 -->
