@@ -85,7 +85,7 @@
 
 				case "Class":
 					if(!empty($searchBy)){
-						$where .= "and Class.Name = ".$searchBy;
+						$where .= "and Class.Name = '".$searchBy."' or Class.ID = '".$searchBy."'";
 					}
 					
 					$stmt = $conn->prepare("
@@ -113,7 +113,7 @@
 
 				case "Student":
 					if(!empty($searchBy)){
-						$where .= "and FirstName = ".$searchBy." or LastName = ".$searchBy." or StudentID = ".$searchBy;
+						$where .= "and FirstName = '".$searchBy."' or LastName = '".$searchBy."' or StudentID = '".$searchBy."'";
 					}
 					
 					$stmt = $conn->prepare("
@@ -145,6 +145,10 @@
 				break;	
 			break;
 			case "":
+				if(!empty($searchBy)){
+					$where .= "and FirstName = '".$searchBy."' or LastName = '".$searchBy."' or StudentID = '".$searchBy."' or Lab.Name = '".$searchBy."' or Lab.ID = '".$searchBy."' or Class.Name = '".$searchBy."' or Class.ID = '".$searchBy."'";
+				}
+
 				$stmt = $conn->prepare("
 					select distinct Lab.Name labName, BeginDate, DueDate, FirstName,LastName, StudentID, Class.Name className, Section.SectionNum section
 					from Student
