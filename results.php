@@ -61,7 +61,7 @@
 					echo "<table><tr><th>Lab Name</th><th>Lab begin date</th><th>Lab due date</th><th>Class Name</th><th>Class Section</th></tr>";
 					while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
 						$arr[] = $row;
-						list($labName, $BeginDate, $DueDate, $FirstName,$LastName, $StudentID, $className, $section, $grade) = $row;
+						list($labName, $BeginDate, $DueDate, $className, $section) = $row;
 						echo "
 							<td><a href='Lab.php?labName=".$labName."'>".$labName."</a></td>
 							<td>".$BeginDate."</td>
