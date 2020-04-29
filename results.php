@@ -53,7 +53,7 @@
 			switch ($filter) {
 				case "Lab":
 					if(!empty($searchBy)){
-						$where .= "and Lab.Name = '".$searchBy."' or Lab.ID = ".$searchBy;
+						$where .= "and Lab.Name = '".$searchBy."' or Lab.ID = '".$searchBy."'";
 					}
 					$stmt = $conn->prepare("
 						select distinct Lab.Name labName, BeginDate, DueDate, Class.Name className, Section.SectionNum section
