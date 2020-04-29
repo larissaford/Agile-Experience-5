@@ -17,7 +17,7 @@
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare("
-            select Class.ID classID, Class.Name className, Lab.Name labName, Lab.ID labID,
+            select Class.ID classID, Class.Name className, Lab.Name labName,
 			Lab.BeginDate beginDate, Lab.DueDate dueDate, Student.FirstName firstName, 
 			Student.LastName lastName, Student.ID studentID, Section.SectionNum sectionNum
             from Lab
@@ -33,7 +33,7 @@
             $counter = 0;
 			while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $arr[] = $row;
-                list($className, $sectionNum, $classID, $labName, $beginDate, $dueDate, $firstName, $lastName, $studentID) = $row;
+                list($classID, $className, $labName, $beginDate, $dueDate, $firstName, $lastName, $studentID, $sectionNum) = $row;
                 
                 if ($counter == 0) {
                     echo "
