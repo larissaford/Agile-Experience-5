@@ -15,10 +15,15 @@
             <h1>Grade Manager</h1>
             <h4>Attempting MySQL connection from php...</h4>
             <?php
-            $host = 'mysql';
-            $user = 'root';
-            $pass = 'rootpassword';
-            $conn = new mysqli($host, $user, $pass);
+
+            $servername = "https://144.13.22.59:3306";
+            $username = "g5AppUser";
+            $password = "aug5";
+            $dbname = "G5AgileExperience";            
+            // $host = 'mysql';
+            // $user = 'root';
+            // $pass = 'rootpassword';
+            // $conn = new mysqli($host, $user, $pass);
 
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
@@ -27,7 +32,13 @@
             }
             ?>    
 
+            <div>
+            <a href="./Student.php">Student</a>
+            </div>
+
+            <!-- <?php phpinfo(); ?> -->
         </div>
+
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

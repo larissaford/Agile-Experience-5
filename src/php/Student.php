@@ -1,24 +1,10 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Student</title>
-</head>
-
-<body>
-	<p>
-	<?php
-		$ID = $_GET["ID"];
-		$FirstName   = $_GET["FirstName"];
-		$LastName  = $_GET["LastName"];
-		$isActive= $_GET["isActive"];
-		
+<?php
 		//display labs of student
 		//display grades
 		//display classes
 
 		echo "<table style='border: solid 1px black;'>";
-		echo "<tr><th>FullName</th></tr>";
+		echo "<tr><th>Student</th></tr>";
 
 		class TableRows extends RecursiveIteratorIterator {
 			function __construct($it) {
@@ -38,7 +24,7 @@
 			}
 		}
 
-		$servername = "https://144.13.22.59:3306";
+		$servername = "localhost:3306";
 		$username = "g5AppUser";
 		$password = "aug5";
 		$dbname = "G5AgileExperience";
@@ -47,7 +33,7 @@
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare("
-			select FirstName,LastName, StudentID, Class.Name className, Lab.Name labName, BeginDate, DueDate 
+			select Lab.Name labName, BeginDate, DueDate, FirstName,LastName, StudentID, Class.Name className, Class.
 			from Student
 			inner join Grade on Student.ID=Grade.StudentID
 			inner join Lab on Grade.LabID=Lab.ID
@@ -68,7 +54,5 @@
 		}
 		$conn = null;
 		echo "</table>";
-	?>
-	</p>
-</body>
-</html>
+?>
+	
