@@ -71,7 +71,7 @@ Generates a page giving information about a single lab.
                             </tr>
                             <tr>
                                 <td><a href='Student.php?StudentID=".$studentID."'>".$studentID."</a></td>
-                                <td><a href='Student.php?StudentID=".$studentID."'>".$firstName." ".$lastName."></a></td>
+                                <td><a href='Student.php?StudentID=".$studentID."'>".$firstName." ".$lastName."</a></td>
                                 <td><a href='Class.php?className=".$className."'>".$className."</a></td>
                                 <td><a href='Class.php?section=".$sectionNum."'>".$sectionNum."</a></td>
                                 <td><a href='Grade.php?StudentID=".$studentID."&LabID=".$labID."'>Grade Lab</a></td>
@@ -97,14 +97,23 @@ Generates a page giving information about a single lab.
                        This lab (".$_GET["labName"].") is not active or has no active students. Please add students or activate lab to continue.
                       </p>";
             }
-            echo "</table>";
+
+            echo "
+            </table>
+            <div id='inputNotes'>
+                <form action='/action_page.php'>
+                    <label for='Comment'>Add new comment below</label><br><br>
+                    <textarea id='w3mission' rows='4' cols='50'></textarea>
+                    </textarea><br><br>
+                <input type='submit' value='Submit'>
+                </form>
+            </div>
+            ";
 		}
 		catch(PDOException $e) {
 			echo "Error: " . $e->getMessage();
 		}
         $conn = null;
-
     ?>
-
 </body>
 </html>
