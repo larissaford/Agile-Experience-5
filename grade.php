@@ -14,8 +14,8 @@
     }
 
     // Check that POST information is correct.
-    if(!isset($_POST['StudentID'], $_POST['LabID'])) {
-        exit('Failed to retrieve POST information.');
+    if(!isset($_GET['StudentID'], $_GET['LabID'])) {
+        exit('Failed to retrieve GET information.');
     }
 
     // Get student and lab information based on POST data
@@ -34,7 +34,7 @@
         AND Student.ID = ?
         AND Lab.ID = ?'
     );
-    $stmt->bind_param('ii', $_POST['StudentID'], $_POST['LabID']);
+    $stmt->bind_param('ii', $_GET['StudentID'], $_GET['LabID']);
     $stmt->execute();
     $stmt->bind_result($FirstName, $LastName, $LabName, $Rubric, $BeginDate, $DueDate, $GradeForCompletion);
     $stmt->fetch();
@@ -63,7 +63,7 @@
             JOIN Criteria ON Lab.ID = Criteria.LabID 
             WHERE Lab.ID = ?;'
             );   
-        $stmt->bind_param('i', $_POST['LabID']);
+        $stmt->bind_param('i', $_GET['LabID']);
         $stmt->execute();
 
         $stmt->bind_result($MaxScore, $CriteriaName, $GradeForCompletion);
@@ -101,8 +101,8 @@
             <input type="hidden" id="Grade" name="Grade" value="<?=$TotalScore?>">
             <input type="submit" value="Submit"><br>
             <p id="status"></p>
-            <input type="hidden" name="StudentID" value="<?=$_POST['StudentID']?>"/>
-            <input type="hidden" name="LabID" value="<?=$_POST['LabID']?>"/>
+            <input type="hidden" name="StudentID" value="<?=$_GET['StudentID']?>"/>
+            <input type="hidden" name="LabID" value="<?=$_GET['LabID']?>"/>
         </form>
         <?php
         $stmt->close();
