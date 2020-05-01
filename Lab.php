@@ -67,12 +67,14 @@ Generates a page giving information about a single lab.
                                 <th>Student Name</th>
                                 <th>Class Name</th>
                                 <th>Section Number</th>
+                                
                             </tr>
                             <tr>
                                 <td><a href='Student.php?StudentID=".$studentID."'>".$studentID."</a></td>
                                 <td><a href='Student.php?StudentID=".$studentID."'>".$firstName." ".$lastName."</a></td>
                                 <td><a href='Class.php?className=".$className."'>".$className."</a></td>
                                 <td><a href='Class.php?section=".$sectionNum."'>".$sectionNum."</a></td>
+                                <td><a href='Grade.php?StudentID=".$studentID."&LabID=".$labID."'>Grade Lab</a></td>
                             </tr>
                     ";
                     $counter++;
@@ -84,6 +86,7 @@ Generates a page giving information about a single lab.
                             <td><a href='Student.php?StudentID=".$studentID."'>".$firstName." ".$lastName."</a></td>
                             <td><a href='Class.php?className=".$className."'>".$className."</a></td>
                             <td><a href='Class.php?section=".$sectionNum."'>".$sectionNum."</a></td>
+                            <td><a href='Grade.php?StudentID=".$studentID."&LabID=".$labID.">Grade Lab</a></td>
                         </tr>
                     ";
                 }
@@ -94,14 +97,25 @@ Generates a page giving information about a single lab.
                        This lab (".$_GET["labName"].") is not active or has no active students. Please add students or activate lab to continue.
                       </p>";
             }
-            echo "</table>";
+            
+            // Notes form has no link to save text value.
+            echo "
+            </table>
+            <br \><br \>
+            <div id='inputNotes' align='left'>
+                <form action='/savenote.php'>
+                    <label for='Comment'>Add new comment below</label><br><br>
+                    <textarea rows='4' cols='50'></textarea>
+                    </textarea><br><br>
+                <input type='submit' value='Submit'>
+                </form>
+            </div>
+            ";
 		}
 		catch(PDOException $e) {
 			echo "Error: " . $e->getMessage();
 		}
         $conn = null;
-
     ?>
-
 </body>
 </html>
