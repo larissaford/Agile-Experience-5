@@ -42,3 +42,12 @@ form#GradeForm {
     left: 50%;
     transform: translate(-50%, 0%)
 }
+
+ /* Formatting for Note Block on Lab */
+.inputNotes {
+    float: right;
+}
+
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+}
