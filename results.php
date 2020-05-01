@@ -30,25 +30,6 @@
 
 			$arr = [];
 
-			
-			
-			/*
-			if(!empty($searchBy)){
-				$where .= "and ".$filter."= ".$searchBy;
-			}
-			*/
-			
-			/*
-			$stmt = $conn->prepare("
-				select distinct Lab.Name labName, BeginDate, DueDate, FirstName,LastName, StudentID, Class.Name className, Section.SectionNum section, Grade
-				from Student
-				inner join Grade on Student.ID=Grade.StudentID
-				inner join Lab on Grade.LabID=Lab.ID
-				inner join SectionLab on Lab.ID=SectionLab.SectionID
-				inner join Section on SectionLab.SectionID=Section.ID
-				inner join Class on Section.ClassID=Class.ID
-				where Student.isActive and Lab.IsActive and Class.IsActive $where");
-			*/
 			$where="";
 			switch ($filter) {
 				case "Lab":
@@ -61,7 +42,7 @@
 						inner join SectionLab on Lab.ID=SectionLab.SectionID
 						inner join Section on SectionLab.SectionID=Section.ID
 						inner join Class on Section.ClassID=Class.ID
-						where Lab.IsActive and Class.IsActive $where");
+						where SectionLab.IsActive and Section.IsActive and Lab.IsActive and Class.IsActive $where");
 						$stmt->execute();
 
 					echo "<table><tr><th>Lab Name</th><th>Lab begin date</th><th>Lab due date</th><th>Class Name</th><th>Class Section</th></tr>";
@@ -90,10 +71,15 @@
 					
 					$stmt = $conn->prepare("
 						select distinct Class.Name className, Section.SectionNum section
-						from Section
-						inner join SectionLab on SectionLab.SectionID=Section.ID
+						FROM StudentSection
+						JOIN Section ON Section.ID = StudentSection.SectionID
+						JOIN SectionLab ON Section.ID = SectionLab.SectionID
+						JOIN Lab ON Lab.ID = SectionLab.LabID
 						inner join Class on Section.ClassID=Class.ID
-						where Class.IsActive $where");
+						WHERE StudentSection.IsActive 
+						AND Section.IsActive
+						AND SectionLab.IsActive
+						AND Lab.IsActive $where");
 						$stmt->execute();
 
 					echo "<table><tr><th>Class Name</th><th>Class Section</th></tr>";
@@ -113,19 +99,24 @@
 
 				case "Student":
 					if(!empty($searchBy)){
-						$where .= "and FirstName = '".$searchBy."' or LastName = '".$searchBy."' or StudentID = '".$searchBy."'";
+						$where .= "and FirstName = '".$searchBy."' or LastName = '".$searchBy."' or Student.ID = '".$searchBy."'";
 					}
 					
 					$stmt = $conn->prepare("
-						select distinct FirstName,LastName, StudentID, Class.Name className, Section.SectionNum section
+						select distinct FirstName,LastName, Student.ID, Class.Name className, Section.SectionNum section
 						from Student
-						inner join Grade on Student.ID=Grade.StudentID
-						inner join Lab on Grade.LabID=Lab.ID
-						inner join SectionLab on Lab.ID=SectionLab.SectionID
-						inner join Section on SectionLab.SectionID=Section.ID
+						JOIN StudentSection ON Student.ID = StudentSection.StudentID
+						JOIN Section ON Section.ID = StudentSection.SectionID
+						JOIN SectionLab ON Section.ID = SectionLab.SectionID
+						JOIN Lab ON Lab.ID = SectionLab.LabID
 						inner join Class on Section.ClassID=Class.ID
-						where Student.isActive and Lab.isActive and Class.IsActive $where");
-					$stmt->execute();
+						inner join Grade on Student.ID=Grade.StudentID
+						WHERE Student.IsActive 
+						AND StudentSection.IsActive 
+						AND Section.IsActive
+						AND SectionLab.IsActive
+						AND Lab.IsActive $where");
+					$stmt->execute(); 
 					
 					echo "<table><tr><th>Student Name</th><th>Student ID</th><th>Class Name</th><th>Class Section</th></tr>";
 					while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -135,7 +126,7 @@
 							<td><a href='Student.php?StudentID=".$StudentID."'>".$FirstName." ".$LastName."</a></td>
 							<td><a href='Student.php?StudentID=".$StudentID."'>".$StudentID."</a></td>
 							<td><a href='Class.php?className=".$className."'>".$className."</a></td>
-							<td><a href='Class.php?section=".$section."'>".$section."</a></td>
+							<td><a href='Class.php?className=".$className."'>".$section."</a></td>
 							</tr>";
 							
 						/* outline for inserting links:
@@ -150,14 +141,19 @@
 				}
 
 				$stmt = $conn->prepare("
-					select distinct Lab.Name labName, BeginDate, DueDate, FirstName,LastName, StudentID, Class.Name className, Section.SectionNum section
+					select distinct Lab.Name labName, BeginDate, DueDate, FirstName,LastName, Student.ID, Class.Name className, Section.SectionNum section
 					from Student
-					inner join Grade on Student.ID=Grade.StudentID
-					inner join Lab on Grade.LabID=Lab.ID
-					inner join SectionLab on Lab.ID=SectionLab.SectionID
-					inner join Section on SectionLab.SectionID=Section.ID
+					JOIN StudentSection ON Student.ID = StudentSection.StudentID
+					JOIN Section ON Section.ID = StudentSection.SectionID
+					JOIN SectionLab ON Section.ID = SectionLab.SectionID
+					JOIN Lab ON Lab.ID = SectionLab.LabID
 					inner join Class on Section.ClassID=Class.ID
-					where Student.isActive and Lab.IsActive and Class.IsActive $where");
+					inner join Grade on Student.ID=Grade.StudentID
+					WHERE Student.IsActive 
+					AND StudentSection.IsActive 
+					AND Section.IsActive
+					AND SectionLab.IsActive
+					AND Lab.IsActive $where");
 
 				$stmt->execute();
 
