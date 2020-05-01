@@ -97,13 +97,15 @@ Generates a page giving information about a single lab.
                        This lab (".$_GET["labName"].") is not active or has no active students. Please add students or activate lab to continue.
                       </p>";
             }
-
+            
+            // Notes form has no link to save text value.
             echo "
             </table>
-            <div id='inputNotes'>
-                <form action='/action_page.php'>
+            <br \><br \>
+            <div id='inputNotes' align='left'>
+                <form action='/savenote.php'>
                     <label for='Comment'>Add new comment below</label><br><br>
-                    <textarea id='w3mission' rows='4' cols='50'></textarea>
+                    <textarea rows='4' cols='50'></textarea>
                     </textarea><br><br>
                 <input type='submit' value='Submit'>
                 </form>
