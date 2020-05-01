@@ -54,7 +54,7 @@
 							<td>".$BeginDate."</td>
 							<td>".$DueDate."</td>
 							<td><a href='Class.php?className=".$className."'>".$className."</a></td>
-							<td><a href='Class.php?section=".$section."'>".$section."</a></td>
+							<td><a href='Class.php?className=".$className."'>".$section."</a></td>
 							</tr>";
 							
 						/* outline for inserting links:
@@ -88,7 +88,7 @@
 						list($className, $section) = $row;
 						echo "
 							<td><a href='Class.php?className=".$className."'>".$className."</a></td>
-							<td><a href='Class.php?section=".$section."'>".$section."</a></td>
+							<td><a href='Class.php?className=".$className."'>".$section."</a></td>
 							</tr>";
 						
 						/* outline for inserting links:
@@ -168,7 +168,7 @@
 						<td><a href='Student.php?StudentID=".$StudentID."'>".$FirstName." ".$LastName."</a></td>
 						<td><a href='Student.php?StudentID=".$StudentID."'>".$StudentID."</a></td>
 						<td><a href='Class.php?className=".$className."'>".$className."</a></td>
-						<td><a href='Class.php?section=".$section."'>".$section."</a></td>
+						<td><a href='Class.php?className=".$className."'>".$section."</a></td>
 						</tr>";
 						
 						/* outline for inserting links:
