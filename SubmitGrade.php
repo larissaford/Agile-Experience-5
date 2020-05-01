@@ -1,6 +1,6 @@
 <?php
     // Database info
-    $DATABASE_HOST = '144.13.22.59:3306';
+    $DATABASE_HOST = 'localhost:3306';
     $DATABASE_USER = 'g5AppUser';
     $DATABASE_PASS = 'aug5';
     $DATABASE_NAME = 'G5AgileExperience';
@@ -44,9 +44,9 @@
     // Insert log into database
     $stmt = $con->prepare('INSERT INTO Log(GraderID, GradeID, TimeStamp) VALUES (?, ?, CURRENT_TIMESTAMP)');
     // default GraderID to one until login system is finished
-    $one = 1;
+    $GraderID = 1;
     $GradeID = $con->insert_id;
-    $stmt->bind_param('ii', $one, $GradeID);
+    $stmt->bind_param('ii', $GraderID, $GradeID);
     if($stmt->execute()) {
         $stmt->close();
     } else {

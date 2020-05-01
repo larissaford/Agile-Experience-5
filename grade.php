@@ -13,7 +13,6 @@
         exit('Failed to connect: ' . mysqli_connect_error());
     }
 
-    echo("StudentID:" . $POST_['StudentID']);
     // Check that POST information is correct.
     if(!isset($_POST['StudentID'], $_POST['LabID'])) {
         exit('Failed to retrieve POST information.');
@@ -47,6 +46,7 @@
     <head>
         <title>Grading Page</title>
         <script src="Grade.js"></script>
+        <link rel="stylesheet" type="text/css" href="Agile-Experience-5.css" />
     </head>
     <body>
         <h2><?=$LastName?>, <?=$FirstName?>: <?=$LabName?></h2>
@@ -68,19 +68,37 @@
 
         $stmt->bind_result($MaxScore, $CriteriaName, $GradeForCompletion);
         ?>
+        <form onsubmit="return submitGrade(this)" method="post" autocomplete="off" id="GradeForm">
         <table>
         <?php
+        $TotalScore = 0;
         while($stmt->fetch())
         {
+            $TotalScore += $MaxScore;
             ?>
-                <tr><?=$CriteriaName?></tr>
-                    <td><input type="number" id="Grade" name="Grade" min="0" max="<?=$MaxScore?>" step="1" value="<?=$MaxScore?>"></td>
+            <tr>
+                <th><?=$CriteriaName?></th>
+            <?php
+            if($GradeForCompletion) {
+            ?>
+                <td><p><input type="checkbox" name="CriteriaGrade" checked max="<?=$MaxScore?>" oninput="updateScore()"> worth <?=$MaxScore?> points</p></td>
+            <?php
+            } else {
+            ?>
+                <td><p><input type="number" name="CriteriaGrade" min="0" max="<?=$MaxScore?>" step="1" value="<?=$MaxScore?>" oninput="updateScore()"> / <?=$MaxScore?> points</p></td>
+            <?php
+            }
+            ?>
+            </tr>
             <?php
         }
         ?>
+            <tr>
+                <th>Total Score:</th>
+                <td><p id="TotalGrade">0 out of <?=$TotalScore?> points.</p></td>
+            </tr>
         </table>
-        <form onsubmit="return submitGrade(this)" method="post" autocomplete="off">
-            <input type="hidden" name="Grade" value="100">
+            <input type="hidden" id="Grade" name="Grade" value="<?=$TotalScore?>">
             <input type="submit" value="Submit"><br>
             <p id="status"></p>
             <input type="hidden" name="StudentID" value="<?=$_POST['StudentID']?>"/>

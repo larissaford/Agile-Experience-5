@@ -11,11 +11,30 @@ function submitGrade(form) {
             if(this.responseXML.documentElement.attributes.status.value == "SUCCESS") {
                 status.innerHTML = "Grade submitted successfully!";
             } else {
-                status.innerHTML = "Grade failed to submit. " + this.responseXML.documentElement.attributes.reason;
+                status.innerHTML = "Grade failed to submit. " + this.responseXML.documentElement.attributes.reason.nodeValue;
             }
         }
     }
     xml.open("POST", "/Agile-Experience-5/SubmitGrade.php");
     xml.send(fd);
     return false;
+}
+
+function updateScore() {
+    let arr = this.document.getElementsByName("CriteriaGrade");
+    let totalGrade = 0;
+    let maxGrade = 0;
+    for(let i = 0; i < arr.length; i++) {
+        if(arr[i].type == "number") {
+            totalGrade += parseInt(arr[i].value);
+        } else {
+            if(arr[i].checked) {
+                totalGrade += parseInt(arr[i].max);
+            }
+        }
+        maxGrade += parseInt(arr[i].max);
+    }
+    this.document.getElementById("TotalGrade").innerHTML = totalGrade + " out of " + maxGrade + " points.";
+    let grade = this.document.getElementById("Grade");
+    grade.value = totalGrade;
 }

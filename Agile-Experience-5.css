@@ -35,3 +35,10 @@ th {
 h1 {
     background-color: #FFFFFF
 }
+
+form#GradeForm {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, 0%)
+}
