@@ -1,6 +1,6 @@
 <?php
     // Database info
-    $DATABASE_HOST = '144.13.22.59:3306';
+    $DATABASE_HOST = 'localhost:3306';
     $DATABASE_USER = 'g5AppUser';
     $DATABASE_PASS = 'aug5';
     $DATABASE_NAME = 'G5AgileExperience';
@@ -95,7 +95,7 @@
         ?>
             <tr>
                 <th>Total Score:</th>
-                <td><p id="TotalGrade">0 out of <?=$TotalScore?> points.</p></td>
+                <td><p id="TotalGrade"><?=$TotalScore?> out of <?=$TotalScore?> points.</p></td>
             </tr>
         </table>
             <input type="hidden" id="Grade" name="Grade" value="<?=$TotalScore?>">

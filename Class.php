@@ -8,7 +8,7 @@
 <?php
 		
 		//display class
-		$servername = "144.13.22.59:3306";
+		$servername = "localhost:3306";
 		$username = "g5AppUser";
 		$password = "aug5";
         $dbname = "G5AgileExperience";
@@ -21,19 +21,18 @@
 			Lab.BeginDate beginDate, Lab.DueDate dueDate, Student.FirstName firstName, 
 			Student.LastName lastName, Student.ID studentID, Section.SectionNum sectionNum
             from Lab
-            inner join Grade on Lab.ID = Grade.LabID
-            inner join Student on Grade.StudentID = Student.ID
-            inner join StudentSection on Student.ID = StudentSection.StudentID
-            inner join Section on StudentSection.SectionID = Section.ID
+            inner join SectionLab on Lab.ID = SectionLab.LabID
+            inner join Section on SectionLab.SectionID = Section.ID
+            inner join StudentSection on Section.ID = StudentSection.SectionID
+            inner join Student on StudentSection.StudentID = Student.ID
             inner join Class on Section.ClassID = Class.ID 
-            where Lab.IsActive and Student.isActive and Class.Name = :name");
+            where Lab.IsActive and Student.IsActive and Section.IsActive and StudentSection.IsActive and SectionLab.IsActive and Class.IsActive and Class.Name = :name");
             $stmt->bindParam(':name', $_GET["className"], PDO::PARAM_STR,64); //Accepting Input
             //$stmt->bindParam(':section', $_GET["section"]); //Accepting Input
             $stmt->execute();
             
             $counter = 0;
 			while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-                $arr[] = $row;
                 list($classID, $className, $labName, $beginDate, $dueDate, $firstName, $lastName, $studentID, $sectionNum) = $row;
                 
                 if ($counter == 0) {
