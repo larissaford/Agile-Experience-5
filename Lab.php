@@ -73,7 +73,7 @@ Generates a page giving information about a single lab.
                                 <td><a href='Student.php?StudentID=".$studentID."'>".$studentID."</a></td>
                                 <td><a href='Student.php?StudentID=".$studentID."'>".$firstName." ".$lastName."</a></td>
                                 <td><a href='Class.php?className=".$className."'>".$className."</a></td>
-                                <td><a href='Class.php?section=".$sectionNum."'>".$sectionNum."</a></td>
+                                <td><a href='Class.php?className=".$className."'>".$sectionNum."</a></td>
                                 <td><a href='Grade.php?StudentID=".$studentID."&LabID=".$labID."'>Grade Lab</a></td>
                             </tr>
                     ";
@@ -85,7 +85,7 @@ Generates a page giving information about a single lab.
                             <td><a href='Student.php?StudentID=".$studentID."'>".$studentID."</a></td>
                             <td><a href='Student.php?StudentID=".$studentID."'>".$firstName." ".$lastName."</a></td>
                             <td><a href='Class.php?className=".$className."'>".$className."</a></td>
-                            <td><a href='Class.php?section=".$sectionNum."'>".$sectionNum."</a></td>
+                            <td><a href='Class.php?className=".$className."'>".$sectionNum."</a></td>
                             <td><a href='Grade.php?StudentID=".$studentID."&LabID=".$labID.">Grade Lab</a></td>
                         </tr>
                     ";
