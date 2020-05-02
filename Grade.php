@@ -1,6 +1,6 @@
 <?php
     // Database info
-    $DATABASE_HOST = 'localhost:3306';
+    $DATABASE_HOST = '144.13.22.59:3306';
     $DATABASE_USER = 'g5AppUser';
     $DATABASE_PASS = 'aug5';
     $DATABASE_NAME = 'G5AgileExperience';
