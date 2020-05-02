@@ -29,10 +29,10 @@ Generates a page giving information about a single lab.
             Student.FirstName firstName, Student.LastName lastName, Student.ID studentID,
             Class.Name className, Section.SectionNum sectionNum
             from Lab
-            inner join Grade on Lab.ID = Grade.LabID
-            inner join Student on Grade.StudentID = Student.ID
-            inner join StudentSection on Student.ID = StudentSection.StudentID
-            inner join Section on StudentSection.SectionID = Section.ID
+            inner join SectionLab on Lab.ID = SectionLab.LabID
+            inner join Section on SectionLab.SectionID = Section.ID
+            inner join StudentSection on Section.ID = StudentSection.SectionID
+            inner join Student on StudentSection.StudentID = Student.ID
             inner join Class on Section.ClassID = Class.ID 
             where Lab.IsActive and Student.isActive and Lab.Name = :name ");
             $stmt->bindParam(':name', $_GET["labName"], PDO::PARAM_STR,64); //Accepting Input
