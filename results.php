@@ -34,7 +34,7 @@
 			switch ($filter) {
 				case "Lab":
 					if(!empty($searchBy)){
-						$where .= "and Lab.Name = '".$searchBy."' or Lab.ID = '".$searchBy."'";
+						$where .= "and Lab.Name LIKE '%".$searchBy."%' or Lab.ID = '".$searchBy."'";
 					}
 					$stmt = $conn->prepare("
 						select distinct Lab.Name labName, BeginDate, DueDate, Class.Name className, Section.SectionNum section
@@ -66,7 +66,7 @@
 
 				case "Class":
 					if(!empty($searchBy)){
-						$where .= "and Class.Name = '".$searchBy."' or Class.ID = '".$searchBy."'";
+						$where .= "and Class.Name LIKE '%".$searchBy."%' or Class.ID = '".$searchBy."'";
 					}
 					
 					$stmt = $conn->prepare("
@@ -99,7 +99,7 @@
 
 				case "Student":
 					if(!empty($searchBy)){
-						$where .= "and FirstName = '".$searchBy."' or LastName = '".$searchBy."' or Student.ID = '".$searchBy."'";
+						$where .= "and FirstName LIKE '%".$searchBy."%' or LastName LIKE '%".$searchBy."%' or Student.ID = '".$searchBy."'";
 					}
 					
 					$stmt = $conn->prepare("
@@ -137,7 +137,7 @@
 			break;
 			case "":
 				if(!empty($searchBy)){
-					$where .= "and FirstName = '".$searchBy."' or LastName = '".$searchBy."' or StudentID = '".$searchBy."' or Lab.Name = '".$searchBy."' or Lab.ID = '".$searchBy."' or Class.Name = '".$searchBy."' or Class.ID = '".$searchBy."'";
+					$where .= "and FirstName LIKE '%".$searchBy."%' or LastName LIKE '%".$searchBy."%' or Student.ID = '".$searchBy."' or Lab.Name LIKE '%".$searchBy."%' or Lab.ID = '".$searchBy."' or Class.Name LIKE '%".$searchBy."%' or Class.ID = '".$searchBy."'";
 				}
 
 				$stmt = $conn->prepare("
