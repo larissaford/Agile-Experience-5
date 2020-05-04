@@ -14,7 +14,7 @@
 		
 		//display labs
 
-		$servername = "144.13.22.59:3306";
+		$servername = "localhost:3306";
 		$username = "g5AppUser";
 		$password = "aug5";
 		$dbname = "G5AgileExperience";
