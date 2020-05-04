@@ -1,6 +1,6 @@
 <?php
     // Database info
-    $DATABASE_HOST = 'localhost:3306';
+    $DATABASE_HOST = '144.13.22.59:3306';
     $DATABASE_USER = 'g5AppUser';
     $DATABASE_PASS = 'aug5';
     $DATABASE_NAME = 'G5AgileExperience';
@@ -29,35 +29,17 @@
     }
 
     // Insert grade into the database
-    $stmt = $con->prepare('INSERT INTO Grade(StudentID, LabID, Grade) VALUES (?, ?, ?)');
-    $stmt->bind_param('iii', $_POST['StudentID'], $_POST['LabID'], $_POST['Grade']);
-    if($stmt->execute()) {
-        $stmt->close();
-    } else {
-        $xml->addAttribute('status', 'FAIL');
-        $xml->addAttribute('reason', 'SQL Error: ' . $con->error);
-        echo($xml->asXML());
-        $stmt-close();
-        exit;
-    }
-    
-    // Insert log into database
-    $stmt = $con->prepare('INSERT INTO Log(GraderID, GradeID, TimeStamp) VALUES (?, ?, CURRENT_TIMESTAMP)');
-    // default GraderID to one until login system is finished
+    $stmt = $con->prepare('CALL proc_GradeStudent(?, ?, ?, ?)');
     $GraderID = 1;
-    $GradeID = $con->insert_id;
-    $stmt->bind_param('ii', $GraderID, $GradeID);
+    $stmt->bind_param('iiii', $_POST['StudentID'], $_POST['LabID'], $GraderID, $_POST['Grade']);
     if($stmt->execute()) {
-        $stmt->close();
+        $xml->addAttribute('status', 'SUCCESS');
     } else {
         $xml->addAttribute('status', 'FAIL');
         $xml->addAttribute('reason', 'SQL Error: ' . $con->error);
-        echo($xml->asXML());
-        $stmt->close();
-        exit;
     }
-    $con->close();
-    $xml->addAttribute('status', 'SUCCESS');
+
     echo($xml->asXML());
-    exit;
+    $stmt->close();
+    $con->close();
 ?>
