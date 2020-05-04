@@ -11,8 +11,98 @@
 		$servername = "localhost:3306";
 		$username = "g5AppUser";
 		$password = "aug5";
-		$dbname = "G5AgileExperience";
+        $dbname = "G5AgileExperience";
 
+        try {
+			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$stmt = $conn->prepare("
+			select Lab.ID labID, Lab.Name labName, BeginDate, DueDate, Rubric, FirstName, LastName, Student.ID, Class.Name className, Class.ID, Section.SectionNum section
+					from Student
+					inner JOIN StudentSection ON Student.ID = StudentSection.StudentID
+					inner JOIN Section ON Section.ID = StudentSection.SectionID
+					inner JOIN SectionLab ON Section.ID = SectionLab.SectionID
+					inner JOIN Lab ON Lab.ID = SectionLab.LabID
+					inner join Class on Section.ClassID=Class.ID
+					WHERE Student.IsActive 
+					AND StudentSection.IsActive 
+					AND Section.IsActive
+					AND SectionLab.IsActive
+					AND Lab.IsActive and Class.Name=?");
+			
+			$stmt->execute([$_GET['className']]);
+			
+			$row = $stmt->fetch(PDO::FETCH_NUM);
+			//$arr[] = $row;
+			list($labID, $labName, $beginDate, $dueDate, $rubric, $firstName, $lastName, $studentID, $className, $classID, $section) = $row;
+			?>
+			<h1><?=$className?> - Section <?=$section?> (Class ID: <?=$classID?>)</h1>
+            Labs:
+			<table><tr><th>Lab Name</th><th>Lab ID</th><th>Lab begin date</th><th>Lab due date</th></tr>	
+
+			<?php
+			do {
+				list($labID, $labName, $beginDate, $dueDate, $rubric, $firstName, $lastName, $studentID, $className, $section, $Grade) = $row;
+				
+                echo "<tr>
+                    <td><a href='Lab.php?labName=".$labName."'>".$labName."</a></td>
+					<td><a href='Lab.php?labName=".$labName."'>".$labID."</a></td>
+					<td>".$beginDate."</td>
+					<td>".$dueDate."</td>
+					</tr>";
+			
+            } while ($row = $stmt->fetch(PDO::FETCH_NUM));
+            echo "</table>";
+            $stmt = $conn->prepare("
+			select Lab.ID labID, Lab.Name labName, BeginDate, DueDate, Rubric, FirstName, LastName, Student.ID, Class.Name className, Class.ID, Section.SectionNum section
+					from Student
+					inner JOIN StudentSection ON Student.ID = StudentSection.StudentID
+					inner JOIN Section ON Section.ID = StudentSection.SectionID
+					inner JOIN SectionLab ON Section.ID = SectionLab.SectionID
+					inner JOIN Lab ON Lab.ID = SectionLab.LabID
+					inner join Class on Section.ClassID=Class.ID
+					WHERE Student.IsActive 
+					AND StudentSection.IsActive 
+					AND Section.IsActive
+					AND SectionLab.IsActive
+                    AND Lab.IsActive and Class.Name=?
+                    GROUP BY Student.FirstName, Student.LastName, Student.ID, Section.SectionNum");
+            $stmt->execute([$_GET['className']]);
+			
+            echo "Students:";
+            echo "<table><tr><th>Student ID</th><th>Student Name</th></tr>";
+            
+            do {
+				list($labID, $labName, $beginDate, $dueDate, $rubric, $firstName, $lastName, $studentID, $className, $section, $Grade) = $row;
+				
+                echo "<tr>
+                    <td><a href='Student.php?StudentID=".$studentID."'>".$studentID."</a></td>
+                    <td><a href='Student.php?StudentID=".$studentID."'>".$firstName." ".$lastName."</a></td>
+                    </tr>";
+                
+			} while ($row = $stmt->fetch(PDO::FETCH_NUM));
+
+
+			echo "</table>";
+			$stmt = null;
+			
+		}
+		catch(PDOException $e) {
+			echo "Error: " . $e->getMessage();
+		}
+		$conn = null;
+        
+
+
+
+
+
+
+
+
+
+
+        /*
 		try {
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -94,8 +184,9 @@
 			echo "Error: " . $e->getMessage();
 		}
         $conn = null;
-
+        */
     ?>
+    
 
 </body>
 </html>
