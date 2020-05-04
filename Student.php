@@ -22,25 +22,27 @@
 			$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$stmt = $conn->prepare("
-			select distinct Lab.ID, Lab.Name, BeginDate, DueDate, Rubric, FirstName, LastName, Student.ID, Class.Name className, Section.SectionNum section, Grade
+			select Lab.ID labID, Lab.Name labName, BeginDate, DueDate, Rubric, FirstName, LastName, Student.ID, Class.Name className, Section.SectionNum section, Grade, max(Log.TimeStamp) mostRecent
 					from Student
-					JOIN StudentSection ON Student.ID = StudentSection.StudentID
-					JOIN Section ON Section.ID = StudentSection.SectionID
-					JOIN SectionLab ON Section.ID = SectionLab.SectionID
-					JOIN Lab ON Lab.ID = SectionLab.LabID
+					inner JOIN StudentSection ON Student.ID = StudentSection.StudentID
+					inner JOIN Section ON Section.ID = StudentSection.SectionID
+					inner JOIN SectionLab ON Section.ID = SectionLab.SectionID
+					inner JOIN Lab ON Lab.ID = SectionLab.LabID
 					inner join Class on Section.ClassID=Class.ID
-					inner join Grade on Student.ID=Grade.StudentID
+					inner join Grade on Student.ID=Grade.StudentID and Grade.LabID = Lab.ID
+					inner join Log on Grade.ID=Log.GradeID
 					WHERE Student.IsActive 
 					AND StudentSection.IsActive 
 					AND Section.IsActive
 					AND SectionLab.IsActive
-					AND Lab.IsActive and Student.ID=?");
+					AND Lab.IsActive and Student.ID=?
+                    GROUP BY Lab.ID , Lab.Name , BeginDate, DueDate, Rubric, FirstName, LastName, Student.ID, Class.Name , Section.SectionNum");
 			
 			$stmt->execute([$_GET['StudentID']]);
 			
 			$row = $stmt->fetch(PDO::FETCH_NUM);
 			//$arr[] = $row;
-			list($labID, $labName, $beginDate, $dueDate, $rubric, $firstName, $lastName, $studentID, $className, $section, $Grade) = $row;
+			list($labID, $labName, $beginDate, $dueDate, $rubric, $firstName, $lastName, $studentID, $className, $section, $Grade, $timeStamp) = $row;
 			?>
 			
 			<h1><?=$firstName?> <?=$lastName?> (Student ID: <?=$studentID?>)</h1>
