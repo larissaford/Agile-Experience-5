@@ -98,23 +98,86 @@
 			?>
 
 			Labs:
-			<table><tr><th>Lab Name</th><th>Lab ID</th><th>Lab begin date</th><th>Lab due date</th><th>Lab Rubric</th><th>Lab Grade</th><th>regrade?</th></tr>	
+			<table><tr><th>Class Name</th><th>Class Section</th><th>Lab Name</th><th>Lab ID</th><th>Lab begin date</th><th>Lab due date</th><th>Lab Rubric</th><th>Lab Grade</th><th>regrade?</th></tr>	
 
 			<?php
+			$stmt = $conn->prepare("select Lab.ID labID, Lab.Name labName, BeginDate, DueDate, Rubric, FirstName, LastName, Student.ID, Class.Name className, Section.SectionNum section, Grade, max(Log.TimeStamp) mostRecent
+			from Student
+			inner JOIN StudentSection ON Student.ID = StudentSection.StudentID
+			inner JOIN Section ON Section.ID = StudentSection.SectionID
+			inner JOIN SectionLab ON Section.ID = SectionLab.SectionID
+			inner JOIN Lab ON Lab.ID = SectionLab.LabID
+			inner join Class on Section.ClassID=Class.ID
+			inner join Grade on Student.ID=Grade.StudentID and Grade.LabID = Lab.ID
+			inner join Log on Grade.ID=Log.GradeID
+			WHERE Student.IsActive 
+			AND StudentSection.IsActive 
+			AND Section.IsActive
+			AND SectionLab.IsActive
+			AND Lab.IsActive and Student.ID=?
+			GROUP BY Lab.ID , Lab.Name , BeginDate, DueDate, Rubric, FirstName, LastName, Student.ID, Class.Name , Section.SectionNum");
 			$stmt->execute([$_GET['StudentID']]);
 
 			while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
 				list($labID, $labName, $beginDate, $dueDate, $rubric, $firstName, $lastName, $studentID, $className, $section, $Grade, $timeStamp) = $row;
 				
-                echo "<tr>
-                    <td><a href='Lab.php?labName=".$labName."'>".$labName."</a></td>
-					<td><a href='Lab.php?labName=".$labName."'>".$labID."</a></td>
-					<td>".$beginDate."</td>
-					<td>".$dueDate."</td>
-					<td><a href='rubrics/".$rubric."'>".$rubric."</a></td>
-					<td>".$Grade."</td>
-					<td><a href='Grade.php?StudentID=".$studentID."&LabID=".$labID."'>Grading Page</td>
-					</tr>";
+				echo "<tr><td><a href='Class.php?className=".$className."'>".$className."</a></td>
+				<td>".$section."</td>
+				<td><a href='Lab.php?labName=".$labName."'>".$labName."</a></td>
+				<td><a href='Lab.php?labName=".$labName."'>".$labID."</a></td>
+				<td>".$beginDate."</td>
+				<td>".$dueDate."</td>
+				<td><a href='rubrics/".$rubric."'>".$rubric."</a></td>
+				<td>".$Grade."</td>
+				<td><a href='Grade.php?StudentID=".$studentID."&LabID=".$labID."'>Grading Page</td></tr>";
+			
+			}
+			$stmt = $conn->prepare("
+                    
+			select Lab.ID labID, Lab.Name labName, BeginDate, DueDate, Rubric, FirstName, LastName, Student.ID, Class.Name className, Section.SectionNum section
+			from Student
+			JOIN StudentSection ON Student.ID = StudentSection.StudentID
+			inner JOIN Section ON Section.ID = StudentSection.SectionID
+			inner JOIN SectionLab ON Section.ID = SectionLab.SectionID
+			inner JOIN Lab ON Lab.ID = SectionLab.LabID
+			inner join Class on Section.ClassID=Class.ID
+			WHERE Student.IsActive 
+			AND StudentSection.IsActive 
+			AND Section.IsActive
+			AND SectionLab.IsActive
+			AND Lab.IsActive and Student.ID=?
+			
+			AND Lab.ID NOT IN (
+			
+			select Lab.ID
+			from Student
+			inner JOIN StudentSection ON Student.ID = StudentSection.StudentID
+			inner JOIN Section ON Section.ID = StudentSection.SectionID
+			inner JOIN SectionLab ON Section.ID = SectionLab.SectionID
+			inner JOIN Lab ON Lab.ID = SectionLab.LabID
+			inner join Class on Section.ClassID=Class.ID
+			inner join Grade on Student.ID=Grade.StudentID and Grade.LabID = Lab.ID
+			WHERE Student.IsActive 
+			AND StudentSection.IsActive 
+			AND Section.IsActive
+			AND SectionLab.IsActive
+			AND Lab.IsActive and Student.ID=?
+			GROUP BY Lab.ID)
+			");
+			$stmt->execute([$_GET['StudentID'],$_GET['StudentID']]);
+
+			while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+				list($labID, $labName, $beginDate, $dueDate, $rubric, $firstName, $lastName, $studentID, $className, $section) = $row;
+				
+				echo "<tr><td><a href='Class.php?className=".$className."'>".$className."</a></td>
+				<td>".$section."</td>
+				<td><a href='Lab.php?labName=".$labName."'>".$labName."</a></td>
+				<td><a href='Lab.php?labName=".$labName."'>".$labID."</a></td>
+				<td>".$beginDate."</td>
+				<td>".$dueDate."</td>
+				<td><a href='rubrics/".$rubric."'>".$rubric."</a></td>
+				<td>Not Graded</td>
+				<td><a href='Grade.php?StudentID=".$studentID."&LabID=".$labID."'>Grading Page</td></tr>";
 			
             }
             echo "</table>";
