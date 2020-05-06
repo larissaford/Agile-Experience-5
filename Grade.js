@@ -15,7 +15,7 @@ function submitGrade(form) {
             }
         }
     }
-    xml.open("POST", "/Agile-Experience-5/SubmitGrade.php");
+    xml.open("POST", "SubmitGrade.php");
     xml.send(fd);
     return false;
 }
