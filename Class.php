@@ -28,7 +28,8 @@
 					AND StudentSection.IsActive 
 					AND Section.IsActive
 					AND SectionLab.IsActive
-					AND Lab.IsActive and Class.Name=?");
+                    AND Lab.IsActive and Class.Name=?
+                    GROUP BY Lab.ID");
 			
 			$stmt->execute([$_GET['className']]);
 			
